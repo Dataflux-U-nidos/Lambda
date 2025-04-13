@@ -1,11 +1,13 @@
 package com.example.Lambda.Email;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.cloud.function.adapter.aws.FunctionInvoker;
+import org.springframework.context.annotation.Bean;
 import org.springframework.stereotype.Component;
 
 import java.util.function.Function;
 
-@Component("sendEmail")
+@Component
 public class EmailFunction implements Function<EmailRequest, String> {
 
     @Autowired
@@ -19,5 +21,11 @@ public class EmailFunction implements Function<EmailRequest, String> {
         } catch (Exception e) {
             return "Failed to send email: " + e.getMessage();
         }
+    }
+
+    // @Bean is optional, but we can define it explicitly if needed
+    @Bean
+    public Function<EmailRequest, String> sendEmail() {
+        return this::apply;
     }
 }
