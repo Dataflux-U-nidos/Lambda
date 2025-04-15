@@ -20,6 +20,7 @@ public class EmailFunction implements Function<EmailRequest, String> {
         String html = emailTemplateFactory.getTemplate(request);        
         try {
             emailSenderService.sendEmail(request.getTo(), request.getSubject(), html);
+
             return "Email sent successfully to: " + request.getTo();
         } catch (Exception e) {
             return "Failed to send email: " + e.getMessage();
