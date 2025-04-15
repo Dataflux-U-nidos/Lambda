@@ -4,8 +4,6 @@ public class EmailRequest {
     private String to;
     private String subject;
     private String type;
-    private String token;
-
 
     public String getTo() { return to; }
     public void setTo(String to) { this.to = to; }
@@ -15,9 +13,6 @@ public class EmailRequest {
 
     public String getType() { return type; }
     public void setType(String type) { this.type = type; }
-
-    public String getToken() { return token; }
-    public void setToken(String token) { this.token = token; }
 
 }
 

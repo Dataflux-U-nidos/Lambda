@@ -1,13 +1,20 @@
 package com.example.Lambda.Email;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 @Component
 public class EmailTemplateFactory {
 
+    @Autowired
+    private JwtService jwtService;
+
     public String getTemplate(EmailRequest request) {
         return switch (request.getType().toUpperCase()) {
-            case "PASSWORD_RECOVERY" -> passwordRecoveryTemplate(request.getToken());
+           case "PASSWORD_RECOVERY" -> {
+                String token = jwtService.generateToken(request.getTo());
+                yield passwordRecoveryTemplate(token);
+            }
             case "RATE_US" -> rateUsTemplate();
             default -> throw new IllegalArgumentException("Invalid email type: " + request.getType());
         };
