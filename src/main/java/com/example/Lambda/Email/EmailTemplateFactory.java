@@ -14,7 +14,7 @@ public class EmailTemplateFactory {
     }
 
     private String passwordRecoveryTemplate(String token) {
-        String recoveryUrl = "http://localhost:5173/forgot-password?token=" + token;
+        String recoveryUrl = "http://localhost:5173/reset-password?token=" + token;
         return """
                 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
                 <html dir="ltr" lang="es">
