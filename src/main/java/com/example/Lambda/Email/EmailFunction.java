@@ -1,7 +1,6 @@
 package com.example.Lambda.Email;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.cloud.function.adapter.aws.FunctionInvoker;
 import org.springframework.context.annotation.Bean;
 import org.springframework.stereotype.Component;
 
@@ -12,11 +11,15 @@ public class EmailFunction implements Function<EmailRequest, String> {
 
     @Autowired
     private EmailSenderService emailSenderService;
+    @Autowired 
+    private EmailTemplateFactory emailTemplateFactory;
 
     @Override
     public String apply(EmailRequest request) {
+
+        String html = emailTemplateFactory.getTemplate(request);        
         try {
-            emailSenderService.sendEmail(request.getTo(), request.getSubject(), request.getHtml());
+            emailSenderService.sendEmail(request.getTo(), request.getSubject(), html);
             return "Email sent successfully to: " + request.getTo();
         } catch (Exception e) {
             return "Failed to send email: " + e.getMessage();
